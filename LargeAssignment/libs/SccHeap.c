@@ -83,11 +83,13 @@ static void *OurMalloc(heap_size_t size) {
         /*
           When the memory block is large enough after cutting, 
             just cut (alignedSize + sizeof(heap_size_t)) bytes of memory from the end of the block.
-            
+            当切割后的内存块足够大时、 
+            只需从内存块的末尾剪切 (alignedSize + sizeof(heap_size_t)) 字节即可
              (1) alignedSize bytes of memory will be returned and used as heap memory.
-
+              (1) 将返回并用作堆内存的 alignedSize 字节。
              (2) sizeof(heap_size_t) bytes of memory will be used to 
                  save the size of memory returned (i.e., alignedSize).
+                 
 
                  In this way, when the allocated memory is returned via OurFree(void *addr),
                  our heap allocator can know its size (i.e., alignedSize).
@@ -97,8 +99,10 @@ static void *OurMalloc(heap_size_t size) {
                       static void OurFree(void *addr).
 
           Q1. Reset cur->size to be (cur->size - alignedSize - sizeof(heap_size_t)).
+          把size更新成分配之后的大小
           Q2. Let ptr be (heap_size_t *)((char *)cur + cur->size + sizeof(heap_size_t)),
              i.e., skipping the HeapMemBLock managed by cur.
+             
           Q3. Save the value of alignedSize into the memory location pointed to by ptr.  
          */
 
