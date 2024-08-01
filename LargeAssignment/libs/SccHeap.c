@@ -83,7 +83,8 @@ static void *OurMalloc(heap_size_t size) {
         /*
           When the memory block is large enough after cutting, 
             just cut (alignedSize + sizeof(heap_size_t)) bytes of memory from the end of the block.
-            
+            当切割后的内存块足够大时、 
+            只需从内存块的末尾剪切 (alignedSize + sizeof(heap_size_t)) 字节即可
              (1) alignedSize bytes of memory will be returned and used as heap memory.
 
              (2) sizeof(heap_size_t) bytes of memory will be used to 
