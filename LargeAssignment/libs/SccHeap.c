@@ -129,7 +129,7 @@ static void *OurMalloc(heap_size_t size) {
           else
               let cur's successor be pre's successor.              
          */
-        if (pre == NULL) {
+        if (pre == NULL) { 
           first = first->next;
         } else {
           pre->next = cur->next;
